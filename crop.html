@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Selection Prediction</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #4CAF50, #8BC34A);
+      margin: 0;
+      padding: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150vh;
+    }
+
+    .container {
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #555;
+      text-align: left;
+    }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      border-color: #4CAF50;
+      outline: none;
+    }
+
+    input[type="number"]::placeholder {
+      color: #aaa;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #388E3C;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f1f1f1;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      display: none;
+    }
+
+    .result p {
+      margin: 0;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-section">
+    <h1>Find Out the Most Suitable Crop to Grow in Your Farm</h1>
+    <section>
+      <div class="container">
+        <form id="cropForm">
+          <label for="Nitrogen">Nitrogen</label>
+          <input type="number" id="Nitrogen" placeholder="Enter the value (example: 50)" required>
+
+          <label for="Phosphorous">Phosphorous</label>
+          <input type="number" id="Phosphorous" placeholder="Enter the value (example: 50)" required>
+
+          <label for="Potassium">Potassium</label>
+          <input type="number" id="Potassium" placeholder="Enter the value (example: 50)" required>
+
+          <label for="ph">PH Level</label>
+          <input type="number" id="ph" placeholder="Enter the value (example: 6.5)" required>
+
+          <label for="Rainfall">Rainfall (in mm)</label>
+          <input type="number" id="Rainfall" placeholder="Enter the value (example: 500)" required>
+
+          <label for="State">State</label>
+          <select id="state" name="state" required>
+            <option value="">Select State</option>
+            <option value="1">Andhra Pradesh</option>
+            <option value="2">Arunachal Pradesh</option>
+            <option value="3">Assam</option>
+            <option value="4">Bihar</option>
+            <option value="5">Chhattisgarh</option>
+            <option value="6">Goa</option>
+            <option value="7">Gujarat</option>
+            <option value="8">Haryana</option>
+            <option value="9">Himachal Pradesh</option>
+            <option value="10">Jharkhand</option>
+            <option value="11">Karnataka</option>
+            <option value="12">Kerala</option>
+            <option value="13">Madhya Pradesh</option>
+            <option value="14">Maharashtra</option>
+            <option value="15">Manipur</option>
+            <option value="16">Meghalaya</option>
+            <option value="17">Mizoram</option>
+            <option value="18">Nagaland</option>
+            <option value="19">Odisha</option>
+            <option value="20">Punjab</option>
+            <option value="21">Rajasthan</option>
+            <option value="22">Sikkim</option>
+            <option value="23">Tamil Nadu</option>
+            <option value="24">Telangana</option>
+            <option value="25">Tripura</option>
+            <option value="26">Uttar Pradesh</option>
+            <option value="27">Uttarakhand</option>
+            <option value="28">West Bengal</option>
+            <option value="29">Andaman and Nicobar Islands</option>
+          </select>
+
+          <label for="City">City</label>
+    <select id="city" name="city" required>
+      <option value="">Select City</option>
+    </select>      
+      <button type="submit">Predict</button>
+      
+    </form>
+<script>
+    const citiesByState = {
+      1: ["Visakhapatnam", "Vijayawada", "Guntur", "Tirupati", "Kurnool"],
+      2: ["Itanagar", "Tawang", "Naharlagun", "Ziro"],
+      3: ["Guwahati", "Dibrugarh", "Jorhat", "Tinsukia"],
+      4: ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur"],
+      5: ["Raipur", "Bhilai", "Bilaspur", "Korba"],
+      6: ["Panaji", "Vasco da Gama", "Margao", "Mapusa"],
+      7: ["Ahmedabad", "Surat", "Vadodara", "Rajkot"],
+      8: ["Chandigarh", "Faridabad", "Gurugram", "Ambala"],
+      9: ["Shimla", "Manali", "Kullu", "Dharamshala"],
+      10: ["Ranchi", "Jamshedpur", "Dhanbad", "Hazaribagh"],
+      11: ["Bengaluru", "Mysuru", "Hubli", "Mangalore"],
+      12: ["Thiruvananthapuram", "Kochi", "Kozhikode", "Kannur"],
+      13: ["Bhopal", "Indore", "Gwalior", "Ujjain"],
+      14: ["Mumbai", "Pune", "Nagpur", "Nashik"],
+      15: ["Imphal", "Silchar", "Churachandpur", "Thoubal"],
+      16: ["Shillong", "Tura", "Jowai", "Nongstoin"],
+      17: ["Aizawl", "Lunglei", "Champhai", "Saitual"],
+      18: ["Kohima", "Dimapur", "Wokha", "Mokokchung"],
+      19: ["Bhubaneswar", "Cuttack", "Rourkela", "Berhampur"],
+      20: ["Chandigarh", "Amritsar", "Ludhiana", "Jalandhar"],
+      21: ["Jaipur", "Udaipur", "Jodhpur", "Kota"],
+      22: ["Gangtok", "Namchi", "Mangan"],
+      23: ["Chennai", "Coimbatore", "Madurai", "Salem"],
+      24: ["Hyderabad", "Warangal", "Karimnagar", "Khammam"],
+      25: ["Agartala", "Udaipur", "Belonia", "Dharmanagar"],
+      26: ["Lucknow", "Kanpur", "Agra", "Varanasi"],
+      27: ["Dehradun", "Haridwar", "Rishikesh", "Nainital"],
+      28: ["Kolkata", "Siliguri", "Durgapur", "Asansol"],
+      29: ["Port Blair", "Diglipur", "Mayabunder"],
+      30: ["Chandigarh"],
+      31: ["Daman", "Diu", "Silvassa"],
+      32: ["Kavaratti", "Minicoy"],
+      33: ["New Delhi", "Old Delhi", "Dwarka", "Karol Bagh"],
+      34: ["Puducherry", "Auroville", "Cuddalore"]
+    };
+
+    document.getElementById('state').addEventListener('change', function() {
+      const citySelect = document.getElementById('city');
+      const stateId = this.value;
+      citySelect.innerHTML = '<option value="">Select City</option>';
+      if (stateId && citiesByState[stateId]) {
+        citiesByState[stateId].forEach(city => {
+          citySelect.innerHTML += `<option value="${city}">${city}</option>`;
+        });
+      }
+    });
+  </script>
+
+
+        <div class="result" id="result">
+          <p>Your Recommended Crop: <span id="recommendedCrop"></span></p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    document.getElementById('cropForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Retrieve user inputs
+      const nitrogen = document.getElementById('Nitrogen').value;
+      const phosphorous = document.getElementById('Phosphorous').value;
+      const potassium = document.getElementById('Potassium').value;
+      const ph = document.getElementById('ph').value;
+      const rainfall = document.getElementById('Rainfall').value;
+      const state = document.getElementById('state').value;
+
+      // Placeholder crop prediction logic based on state
+      let recommendedCrop = '';
+
+      // Example logic to determine the crop based on state
+      switch (state) {
+        case "1": // Andhra Pradesh
+          recommendedCrop = 'Maize';
+          break;
+        case "2": // Arunachal Pradesh
+          recommendedCrop = 'Soybean';
+          break;
+        case "3": // Assam
+          recommendedCrop = 'Tea';
+          break;
+        case "4": // Bihar
+          recommendedCrop = 'Wheat';
+          break;
+        case "5": // Chhattisgarh
+          recommendedCrop = 'Rice';
+          break;
+        case "6": // Goa
+          recommendedCrop = 'Coconut';
+          break;
+        case "7": // Gujarat
+          recommendedCrop = 'Cotton';
+          break;
+        case "8": // Haryana
+          recommendedCrop = 'Maize';
+          break;
+        case "9": // Himachal Pradesh
+          recommendedCrop = 'Apple';
+          break;
+        case "10": // Jharkhand
+          recommendedCrop = 'Rice';
+          break;
+        case "11": // Karnataka
+          recommendedCrop = 'Banana';
+          break;
+        case "12": // Kerala
+          recommendedCrop = 'Banana';
+          break;
+        case "13": // Madhya Pradesh
+          recommendedCrop = 'Wheat';
+          break;
+        case "14": // Maharashtra
+          recommendedCrop = 'Groundnut';
+          break;
+        case "15": // Manipur
+          recommendedCrop = 'Pulses';
+          break;
+        case "16": // Meghalaya
+          recommendedCrop = 'Rice';
+          break;
+        case "17": // Mizoram
+          recommendedCrop = 'Corn';
+          break;
+        case "18": // Nagaland
+          recommendedCrop = 'Rice';
+          break;
+        case "19": // Odisha
+          recommendedCrop = 'Groundnut';
+          break;
+        case "20": // Punjab
+          recommendedCrop = 'Wheat';
+          break;
+        case "21": // Rajasthan
+          recommendedCrop = 'Barley';
+          break;
+        case "22": // Sikkim
+          recommendedCrop = 'Peas';
+          break;
+        case "23": // Tamil Nadu
+          recommendedCrop = 'Maize';
+          break;
+        case "24": // Telangana
+          recommendedCrop = 'Cotton';
+          break;
+        case "25": // Tripura
+          recommendedCrop = 'Pulses';
+          break;
+        case "26": // Uttar Pradesh
+          recommendedCrop = 'Wheat';
+          break;
+        case "27": // Uttarakhand
+          recommendedCrop = 'Apple';
+          break;
+        case "28": // West Bengal
+          recommendedCrop = 'Rice';
+          break;
+        case "29": // Andaman and Nicobar Islands
+          recommendedCrop = 'Coconut';
+          break;
+        default:
+          recommendedCrop = 'Not Available';
+      }
+
+      // Show the result
+      const resultDiv = document.getElementById('result');
+      const cropSpan = document.getElementById('recommendedCrop');
+      cropSpan.textContent = recommendedCrop;
+      resultDiv.style.display = 'block'; // Display result
+
+    });
+  </script>
+</body>
+</html>

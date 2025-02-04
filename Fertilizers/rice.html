@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fertilizer Recommendations for Rice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 170vh;
+      background-image: linear-gradient(to right, #4CAF50, #8BC34A);
+    }
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.5;
+      text-align: left;
+    }
+    ul {
+      text-align: left;
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    @media (max-width: 600px) {
+      .container {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Fertilizer Recommendations for Rice</h1>
+    <p>The nutrient levels in your soil have been analyzed, and the following recommendations are provided to optimize your rice crop yield:</p>
+    
+    <!-- Nitrogen Recommendation -->
+    <h2>Nitrogen (N)</h2>
+    <p id="nitrogen-recommendation"></p>
+    
+    <!-- Phosphorus Recommendation -->
+    <h2>Phosphorus (P)</h2>
+    <p id="phosphorus-recommendation"></p>
+    
+    <!-- Potassium Recommendation -->
+    <h2>Potassium (K)</h2>
+    <p id="potassium-recommendation"></p>
+  </div>
+
+  <script>
+    // Sample nutrient levels; in practice, these would be passed from the form or a database
+    const nutrientLevels = {
+      nitrogen: 'high',     // possible values: 'low', 'optimal', 'high'
+      phosphorus: 'low',    // possible values: 'low', 'optimal', 'high'
+      potassium: 'optimal'  // possible values: 'low', 'optimal', 'high'
+    };
+
+    // Fertilizer recommendations based on nutrient levels
+    const fertilizerRecommendations = {
+      nitrogen: {
+        high: `The N value of soil is high and might give rise to weeds.
+        Please consider the following suggestions:
+        <ul>
+          <li>Add manure carefully as it contains nitrogen.</li>
+          <li>Use coffee grinds as a natural nitrogen source.</li>
+          <li>Plant nitrogen-fixing crops like beans and peas.</li>
+          <li>Use mulch such as grass clippings or sawdust.</li>
+        </ul>`,
+        low: `The N value of your soil is low.
+        Please consider the following suggestions:
+        <ul>
+          <li>Add composted manure to increase nitrogen levels.</li>
+          <li>Plant nitrogen-fixing plants like peas or beans.</li>
+          <li>Use nitrogen-rich fertilizers (NPK with high N value).</li>
+          <li>Water the soil adequately.</li>
+        </ul>`,
+        optimal: `The N value of your soil is optimal.
+        Maintain your current soil management practices.`
+      },
+      phosphorus: {
+        high: `The P value of your soil is high.
+        Please consider the following suggestions:
+        <ul>
+          <li>Avoid adding manure as it contains phosphorus.</li>
+          <li>Use phosphorus-free fertilizers (e.g., 10-0-10).</li>
+          <li>Water your soil adequately to reduce excess phosphorus.</li>
+        </ul>`,
+        low: `The P value of your soil is low.
+        Please consider the following suggestions:
+        <ul>
+          <li>Add bone meal or rock phosphate.</li>
+          <li>Use organic compost rich in phosphorus.</li>
+          <li>Apply phosphorus-based fertilizers.</li>
+        </ul>`,
+        optimal: `The P value of your soil is optimal.
+        Maintain your current soil management practices.`
+      },
+      potassium: {
+        high: `The K value of your soil is high.
+        No additional potassium fertilization is needed.`,
+        low: `The K value of your soil is low.
+        Please consider the following suggestions:
+        <ul>
+          <li>Use potassium-rich fertilizers such as potash.</li>
+          <li>Add banana peels or wood ash to the soil.</li>
+          <li>Apply compost rich in organic matter.</li>
+        </ul>`,
+        optimal: `The K value of your soil is optimal.
+        Maintain your current soil management practices.`
+      }
+    };
+
+    // Function to update recommendations dynamically
+    function updateRecommendations() {
+      document.getElementById("nitrogen-recommendation").innerHTML = fertilizerRecommendations.nitrogen[nutrientLevels.nitrogen];
+      document.getElementById("phosphorus-recommendation").innerHTML = fertilizerRecommendations.phosphorus[nutrientLevels.phosphorus];
+      document.getElementById("potassium-recommendation").innerHTML = fertilizerRecommendations.potassium[nutrientLevels.potassium];
+    }
+
+    // Call function to update recommendations on page load
+    updateRecommendations();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Harvestify - Agricultural Solutions">
+    <title>Aggrotech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Distressed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Emilys+Candy&family=Kalnia+Glaze:wght@100..700&family=Merienda:wght@300..900&family=Rubik+Distressed&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+   /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f4f4f4;
+}
+
+/* Header */
+header {
+    background-image: url('background.jpg');
+    background-color: #4CAF50;
+    background-size: cover;
+    background-position: center;
+    color: black;
+    padding: 130px;
+    text-align: left;
+}
+
+.logo h1 {
+    font-size: 5rem;
+    margin: 0;
+}
+
+/* Navigation */
+nav {
+    margin-left: auto;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: red;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: 2px solid white;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    background: white;
+    color: #4CAF50;
+}
+
+/* Hero Section */
+#Quest {
+    text-align: center;
+    padding: 110px;
+    font-size: 1.3rem;
+}
+
+.hero h2 {
+    font-size: 3rem;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+.container {
+    padding: 20px;
+}
+
+/* Services Section */
+#services, #contact {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+#services {
+    background: #e4e4e4;
+}
+
+#services h2, #contact h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.service-cards {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    background: #fff;
+    margin: 0 15px;
+    padding: 20px;
+    width: 350px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 1.1rem;
+}
+
+/* Contact Section */
+#contact {
+    background: #f9f9f9;
+}
+
+#contact form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contact form input, 
+#contact form textarea {
+    width: 300px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#contact form button {
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#contact form button:hover {
+    background: #45a049;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #4CAF50;
+    color: white;
+}
+
+
+
+#scrollTopBtn {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    display: none;
+    background: red;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 100%;
+    font-size: 25px;
+    cursor: pointer;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+#scrollTopBtn:hover {
+    background: #555;
+    transform: scale(1.1);
+}
+
+/* WhatsApp Button */
+#whatsappBtn, .float {
+    background: #25d366;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 2px 10px;
+    border-radius: 150px;
+    cursor: pointer;
+}
+
+
+#whatsappBtn:hover, .float:hover {
+    background: #1da851;
+}
+
+/* Floating WhatsApp Button */
+.float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 150px;
+    right: 40px;
+    font-size: 40px;
+    box-shadow: 2px 2px 3px #999;
+    z-index: 100;
+}
+</style>
+</head>
+<body>
+<!-- Header Section -->
+<div class="logo">
+    <header>
+     <section id="home">
+        <h1>AGGROTECH</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="crop.html">Crop</a></li>
+                <li><a href="fertilizer.html">Fertilizer</a></li>
+                <li><a href="disease.html">Disease</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+      </div>
+      </section>
+        <section id="Quest">
+        <h2>Get informed Decisions About Your Farming Strategy</h2>
+        <p>1. What crop to plant here?</p>
+        <p>2. What fertilizer to use?</p>
+        <p>3. Which disease do your crop have?</p>
+        <p>4. How to cure the disease?</p>
+    </header>
+</section>
+    </div>
+
+
+    
+<div class="container">
+ <section id="about">
+    <h1>About Us</h1>
+    <p>
+        	At Aggrotech, we are committed to transforming agriculture through innovation, cutting-edge technology, and sustainable practices.
+	Our mission is simple yet powerful – Improving Agriculture, Improving Lives. 
+	By harnessing the potential of AI-powered tools, we empower farmers with data-driven insights that enhance decision-making at every stage of cultivation. 
+	From selecting the most suitable crops and fertilizers to identifying and preventing plant diseases, our technology-driven solutions help optimize resources, reduce risks, and boost productivity. 
+	We believe that agriculture is not just about growing crops but about nurturing communities, fostering economic growth, and ensuring food security. 
+	Our goal is to maximize yields, increase profitability, and create a more resilient and sustainable farming ecosystem. At Aggrotech, we bridge the gap between tradition and modernity, combining the wisdom of experienced farmers with the precision of advanced technology. 
+	Together, we can reshape the future of farming—where innovation meets tradition, and progress leads to prosperity. Join us on this journey toward a smarter, more sustainable agricultural landscape.
+    </p>
+</section>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <h2>Our Services</h2>
+        <div class="service-cards">
+            <div class="card">
+            <img src="https://images.pexels.com/photos/1443867/pexels-photo-1443867.jpeg" alt="Crop Service" width="200">
+                <h3>Crop Selection</h3>
+                <p>Recommendation about the type of crops to be cultivated which is best suited for the respective conditions.</p>
+            </div>
+            <div class="card">
+              <img src="https://media.istockphoto.com/id/606230424/photo/agriculture.jpg?s=612x612&w=0&k=20&c=byKybbMGCEAgdgfgyvUXC2ttl_8nbfc7JKpKFYg6rw4=" alt="Fertilizer Service" width="200">
+                <h3>Fertilizers Guide</h3>
+                <p>Recommendation about the type of fertilizer best suited for the particular soil and the recommended crop.</p>
+            </div>
+            <div class="card">
+               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-gvLdTKNEKSoEqtK8njK8hn3LM3C_0Y4Dsg&s" alt="Disease Service" width="200">
+                <h3>Disease Prediction</h3>
+                <p>Predicting the name and causes of crop disease and suggestions to cure it.</p>
+            </div>
+        </div>
+    </section>
+
+    
+<!-- Contact Section -->
+<section id="contact">
+        <div class="contact-info">
+        <h2>Contact Information</h2>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <p><strong>Phone:</strong> +91 9381285994 | +91 8688341080 | +91 9490156376 | +91 7411446440</p>
+            <p><strong>Email:</strong> <a href="mailto:info@aggrotech.com">info@aggrotech.com</a></p>
+            <p><strong>Address:</strong> RGMCET Nandyal,Andhra Pradesh,India 518501</p>
+        </div>
+    </section>
+    
+    <a href="https://api.whatsapp.com/send?phone=919381285994&amp;text=Hi" class="float" target="_blank"><i class="fab fa-whatsapp my-float"></i>
+    </a>
+    
+    <section id="contact">
+        <h2>Quick Contact</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Your Name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <label for="message">Message:</label>
+            <textarea id="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+
+    <footer>
+        <p>&copy; 2025 Aggrotech. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // JavaScript for Contact Form Submission
+        document.querySelector("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Thank you for your message! We will get back to you soon.");
+            this.reset();
+        });
+    </script>
+ 
+<button id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+<script>
+window.onscroll = function() {
+    document.getElementById("scrollTopBtn").style.display =
+        window.scrollY > 200 ? "block" : "none";
+};
+
+function scrollToTop() {
+    window.scrollTo({ top: 10, behavior: "smooth" });
+}
+
+</script>
+
+
+
+</body>
+</html>

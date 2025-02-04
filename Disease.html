@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Disease Prediction</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 130vh;
+      background-image: linear-gradient(to right, #FF5722, #FFC107);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      color: white;
+      opacity: 0;
+      animation: fadeInText 2s ease-out forwards;
+      margin-bottom: 30px;
+    }
+
+    @keyframes fadeInText {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    form {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      width: 350px;
+      opacity: 0;
+      animation: fadeInForm 2s ease-out forwards;
+    }
+
+    @keyframes fadeInForm {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    label {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="file"]:focus {
+      border-color: #3a8dff;
+      outline: none;
+    }
+
+    button {
+      background-color: #3a8dff;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #2a6db3;
+    }
+
+    button:active {
+      background-color: #1d5f91;
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+      display: none;
+    }
+
+    .result h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .result p {
+      font-weight: bold;
+    }
+
+    /* Media query for smaller screens */
+    @media (max-width: 600px) {
+      form {
+        width: 90%;
+      }
+    }
+
+  </style>
+</head>
+<body>
+<div class="form-section">
+  <h1>Crop Disease Prediction</h1>
+
+  <form id="diseaseForm">
+    <label for="img">Please Upload Image</label>
+    <input type="file" id="img" name="img" required>
+
+    <button type="submit">Predict</button>
+  </form>
+
+  <div class="result" id="result">
+    <h2>Predicted Disease:</h2>
+    <p id="diseaseName"></p>
+    <h3>Precautions and Remedies:</h3>
+    <ul id="remedies"></ul>
+  </div>
+
+</div>
+
+<script>
+  const diseaseInfo = {
+    '1.jpg': {
+      disease: 'Leaf Blight',
+      remedies: [
+        'Apply fungicides such as copper-based products to control the spread.',
+        'Remove all infected leaves and dispose of them properly.',
+        'Ensure proper spacing between plants to improve air circulation and reduce moisture buildup.',
+        'Improve soil drainage and avoid overwatering to prevent further infection.',
+      ],
+    },
+    '2.jpg': {
+      disease: 'Powdery Mildew',
+      remedies: [
+        'Spray sulfur-based fungicides or neem oil to control the disease.',
+        'Ensure proper air circulation around the plants and avoid overcrowding.',
+        'Water plants at the base rather than overhead to reduce moisture on leaves.',
+        'Remove and destroy infected leaves to prevent the spread of spores.',
+      ],
+    },
+    '3.jpg': {
+      disease: 'Root Rot',
+      remedies: [
+        'Improve soil drainage by adding organic material such as compost or sand.',
+        'Water plants less frequently, and allow the soil to dry between waterings.',
+        'Remove and discard any infected roots, and treat with a fungicide if necessary.',
+        'Consider using raised beds or containers for better drainage.',
+      ],
+    },
+    '4.jpg': {
+      disease: 'Bacterial Spot',
+      remedies: [
+        'Use copper-based fungicides for effective control.',
+        'Remove and destroy infected leaves to prevent further spread.',
+        'Avoid overhead watering to minimize the spread of bacteria.',
+        'Disinfect tools and equipment after working with affected plants.',
+      ],
+    },
+    '5.jpg': {
+      disease: 'Late Blight',
+      remedies: [
+        'Remove and destroy infected leaves and stems immediately.',
+        'Apply fungicides containing chlorothalonil or mancozeb to prevent further infection.',
+        'Rotate crops every year to reduce the buildup of disease spores.',
+        'Choose resistant plant varieties that are less susceptible to blight.',
+      ],
+    },
+    '6.jpg': {
+      disease: 'Early Blight',
+      remedies: [
+        'Ensure good soil drainage and remove infected leaves as soon as possible.',
+        'Apply fungicides containing chlorothalonil to prevent further spread.',
+        'Practice crop rotation to reduce the recurrence of the disease.',
+        'Remove any volunteer plants or weeds that could harbor spores.',
+      ],
+    },
+    '7.jpg': {
+      disease: 'Fusarium Wilt',
+      remedies: [
+        'Improve soil drainage and avoid overwatering to reduce the risk of disease.',
+        'Rotate crops and avoid planting susceptible crops in the same soil each year.',
+        'Remove and destroy any infected plants to prevent the spread of the fungus.',
+        'Soil treatment with fungicides may help control Fusarium wilt.',
+      ],
+    },
+    '8.jpg': {
+      disease: 'Anthracnose',
+      remedies: [
+        'Remove all infected plant material and dispose of it away from healthy crops.',
+        'Use fungicides such as chlorothalonil, especially after rainfall.',
+        'Prune infected branches and avoid overcrowding plants.',
+        'Apply preventative fungicides at the start of the growing season to reduce infection risk.',
+      ],
+    },
+    '9.jpg': {
+      disease: 'Downy Mildew',
+      remedies: [
+        'Use fungicides such as metalaxyl or copper-based treatments to control the disease.',
+        'Ensure good airflow around plants to reduce humidity and moisture buildup.',
+        'Remove and destroy infected leaves to limit the spread of spores.',
+        'Practice crop rotation to prevent soilborne infections.',
+      ],
+    },
+    '10.jpg': {
+      disease: 'Leaf Curl',
+      remedies: [
+        'Prune infected branches and leaves to reduce the spread of the disease.',
+        'Use sulfur-based fungicides or neem oil to control fungal growth.',
+        'Ensure proper spacing between plants to improve air circulation.',
+        'Avoid overwatering and remove any fallen leaves from the ground.',
+      ],
+    },
+    '11.jpg': {
+      disease: 'Cercospora Leaf Spot',
+      remedies: [
+        'Remove infected leaves and dispose of them in the trash, not the compost.',
+        'Use copper-based fungicides to control the spread of the disease.',
+        'Avoid overhead irrigation to prevent moisture from staying on leaves.',
+        'Ensure good airflow around the plants and remove weeds that can harbor spores.',
+      ],
+    },
+    '12.jpg': {
+      disease: 'Tobacco Mosaic Virus',
+      remedies: [
+        'Remove infected plants immediately to prevent the virus from spreading.',
+        'Disinfect tools and equipment regularly to avoid contamination.',
+        'Plant resistant varieties if available and practice good sanitation.',
+        'No chemical control is available, so focus on prevention and using resistant varieties.',
+      ],
+    },
+    '13.jpg': {
+      disease: 'Cabbage Worm',
+      remedies: [
+        'Use insecticides like Bacillus thuringiensis (Bt) to target cabbage worms.',
+        'Hand-pick the worms off the plants and dispose of them.',
+        'Install row covers to prevent pests from reaching the plants.',
+        'Encourage natural predators like ladybugs and birds to help control the pest population.',
+      ],
+    },
+    '14.jpg': {
+      disease: 'Tomato Hornworm',
+      remedies: [
+        'Hand-pick the worms off the plants and destroy them.',
+        'Use organic insecticides like neem oil or pyrethrin.',
+        'Install traps or use natural predators like parasitic wasps.',
+        'Regularly inspect plants for signs of hornworm damage.',
+      ],
+    },
+    '15.jpg': {
+      disease: 'Leaf Spot',
+      remedies: [
+        'Remove and destroy infected leaves to prevent further spread.',
+        'Apply fungicides that are specifically designed for leaf spot control.',
+        'Avoid overhead watering to minimize the spread of spores.',
+        'Ensure proper spacing between plants for better air circulation.',
+      ],
+    }
+  };
+
+  document.getElementById('diseaseForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    const fileInput = document.getElementById('img');
+    const fileName = fileInput.files[0].name; // Get the name of the uploaded file
+
+    // Check if the uploaded file is in the diseaseInfo object
+    if (diseaseInfo[fileName]) {
+      let diseaseDetails = diseaseInfo[fileName];
+
+      // Update the result section with disease name and remedies
+      document.getElementById('diseaseName').textContent = diseaseDetails.disease;
+      const remediesList = document.getElementById('remedies');
+      remediesList.innerHTML = ''; // Clear previous remedies
+      diseaseDetails.remedies.forEach(function(remedy) {
+        const li = document.createElement('li');
+        li.textContent = remedy;
+        remediesList.appendChild(li);
+      });
+
+      // Show the result div
+      document.getElementById('result').style.display = 'block';
+    } else {
+      // If the file is not recognized
+      document.getElementById('diseaseName').textContent = 'Unknown Disease';
+      document.getElementById('remedies').textContent = 'No remedies available for this image.';
+      document.getElementById('result').style.display = 'block';
+    }
+  });
+</script>
+
+</body>
+</html>

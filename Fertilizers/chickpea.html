@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fertilizer Recommendations for Chickpea</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 170vh;
+      background-image: linear-gradient(to right, #FF9800, #FFC107);
+    }
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.5;
+      text-align: left;
+    }
+    ul {
+      text-align: left;
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    @media (max-width: 600px) {
+      .container {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Fertilizer Recommendations for Chickpea</h1>
+    <p>The nutrient levels in your soil have been analyzed, and the following recommendations are provided to optimize your chickpea crop yield:</p>
+    
+    <!-- Nitrogen Recommendation -->
+    <h2>Nitrogen (N)</h2>
+    <p id="nitrogen-recommendation"></p>
+    
+    <!-- Phosphorus Recommendation -->
+    <h2>Phosphorus (P)</h2>
+    <p id="phosphorus-recommendation"></p>
+    
+    <!-- Potassium Recommendation -->
+    <h2>Potassium (K)</h2>
+    <p id="potassium-recommendation"></p>
+  </div>
+
+  <script>
+    // Sample nutrient levels; in practice, these would be passed from the form or a database
+    const nutrientLevels = {
+      nitrogen: 'optimal',     // possible values: 'low', 'optimal', 'high'
+      phosphorus: 'low',       // possible values: 'low', 'optimal', 'high'
+      potassium: 'optimal'     // possible values: 'low', 'optimal', 'high'
+    };
+
+    // Fertilizer recommendations based on nutrient levels
+    const fertilizerRecommendations = {
+      nitrogen: {
+        high: `The N value of your soil is high, which can lead to excessive vegetative growth and potential lodging.
+        Please consider the following suggestions:
+        <ul>
+          <li>Avoid additional nitrogen fertilization.</li>
+          <li>Monitor for signs of nitrogen toxicity, such as dark green leaves and delayed maturity.</li>
+          <li>Consider planting cover crops to utilize excess nitrogen.</li>
+        </ul>`,
+        low: `The N value of your soil is low.
+        Please consider the following suggestions:
+        <ul>
+          <li>Apply 15-20 kg of nitrogen per hectare at sowing to support initial growth.</li>
+          <li>Incorporate well-decomposed farmyard manure (FYM) at 5 tons per hectare to enhance nitrogen availability.</li>
+          <li>Ensure proper seed inoculation with Rhizobium to promote biological nitrogen fixation.</li>
+        </ul>`,
+        optimal: `The N value of your soil is optimal.
+        Maintain your current soil management practices to sustain nitrogen levels.`
+      },
+      phosphorus: {
+        high: `The P value of your soil is high.
+        Please consider the following suggestions:
+        <ul>
+          <li>Avoid applying phosphorus fertilizers to prevent nutrient imbalances.</li>
+          <li>Implement practices to reduce phosphorus runoff, such as buffer strips or cover crops.</li>
+          <li>Regularly monitor soil phosphorus levels through testing.</li>
+        </ul>`,
+        low: `The P value of your soil is low.
+        Please consider the following suggestions:
+        <ul>
+          <li>Apply 40 kg of P₂O₅ per hectare at sowing to support root development and early growth.</li>
+          <li>Use starter fertilizers, such as 8-24-6 with 1% Zn, at 10 gallons per acre during planting, especially in cooler soils.</li>
+          <li>Incorporate organic compost rich in phosphorus to improve soil fertility.</li>
+        </ul>`,
+        optimal: `The P value of your soil is optimal.
+        Maintain your current soil management practices to sustain phosphorus levels.`
+      },
+      potassium: {
+        high: `The K value of your soil is high.
+        No additional potassium fertilization is needed.
+        Please consider the following suggestions:
+        <ul>
+          <li>Avoid applying potassium fertilizers to prevent nutrient imbalances.</li>
+          <li>Monitor for signs of potassium excess, such as antagonism with other nutrients like magnesium and calcium.</li>
+          <li>Regularly test soil to track potassium levels.</li>
+        </ul>`,
+        low: `The K value of your soil is low.
+        Please consider the following suggestions:
+        <ul>
+          <li>Apply potassium fertilizers (potash) based on soil test recommendations.</li>
+          <li>Incorporate crop residues and organic matter to improve potassium availability.</li>
+          <li>Choose fertilizer blends that address multiple nutrient deficiencies if applicable.</li>
+        </ul>`,
+        optimal: `The K value of your soil is optimal.
+        Maintain your current soil management practices to sustain potassium levels.`
+      }
+    };
+
+    // Function to update recommendations dynamically
+    function updateRecommendations() {
+      document.getElementById("nitrogen-recommendation").innerHTML = fertilizerRecommendations.nitrogen[nutrientLevels.nitrogen];
+      document.getElementById("phosphorus-recommendation").innerHTML = fertilizerRecommendations.phosphorus[nutrientLevels.phosphorus];
+      document.getElementById("potassium-recommendation").innerHTML = fertilizerRecommendations.potassium[nutrientLevels.potassium];
+    }
+
+    // Call function to update recommendations on page load
+    updateRecommendations();
+  </script>
+
+</body>
+</html>

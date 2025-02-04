@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fertilizer Recommendations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: linear-gradient(to right, #4CAF50, #8BC34A);
+    }
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      color: white;
+      margin-bottom: 10px;
+    }
+    form {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      width: 350px;
+    }
+    label {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 5px;
+      display: block;
+    }
+    input[type="number"], select {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+    }
+    input[type="number"]:focus, select:focus {
+      border-color: #3a8dff;
+      outline: none;
+    }
+    button {
+      background-color: #3a8dff;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #2a6db3;
+    }
+    @media (max-width: 600px) {
+      form {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-section">
+    <h1>Fertilizer Recommendations</h1>
+    
+      <form id="fertilizerForm">
+      <label for="Nitrogen">Nitrogen</label>
+      <input type="number" id="Nitrogen" name="nitrogen" placeholder="Enter the value" required>
+      
+      <label for="Phosphorous">Phosphorous</label>
+      <input type="number" id="Phosphorous" name="phosphorous" placeholder="Enter the value" required>
+      
+      <label for="Potassium">Potassium</label>
+      <input type="number" id="Potassium" name="potassium" placeholder="Enter the value" required>
+
+      <label for="crop">Crop you want to grow</label>
+      <select id="crop" name="crop" required>
+        <option value="">Select crop</option>
+      <option value="rice">Rice</option>
+      <option value="maize">Maize</option>
+      <option value="chickpea">Chickpea</option>
+      <option value="kidneybeans">Kidneybeans</option>      
+      <option value="banana">Banana</option>
+      <option value="mango">Mango</option>
+      <option value="apple">Apple</option>
+      <option value="orange">Orange</option>
+      <option value="papaya">Papaya</option>
+      <option value="coconut">Coconut</option>
+      <option value="cotton">Cotton</option>
+      <option value="jute">Jute</option>
+      <option value="coffee">Coffee</option>
+      </select>
+
+      <br />
+      <button type="submit">Predict</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('fertilizerForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Retrieve user inputs
+      const nitrogen = document.getElementById('Nitrogen').value;
+      const phosphorous = document.getElementById('Phosphorous').value;
+      const potassium = document.getElementById('Potassium').value;
+      const crop = document.getElementById('crop').value;
+
+      // Determine the target page based on user input
+      let targetPage = '';
+
+      // Example logic to determine the target page
+      switch (crop) {
+    case 'rice':
+        targetPage = 'Fertilizers/rice.html';
+        break;
+    case 'maize':
+        targetPage = 'Fertilizers/maize.html';
+        break;
+    case 'chickpea':
+        targetPage = 'Fertilizers/chickpea.html';
+        break;
+    case 'kidneybeans':
+        targetPage = 'Fertilizers/kidneybeans.html';
+        break;
+    case 'banana':
+        targetPage = 'Fertilizers/banana.html';
+        break;
+    case 'mango':
+        targetPage = 'Fertilizers/mango.html';
+        break;
+    case 'apple':
+        targetPage = 'Fertilizers/apple.html';
+        break;
+    case 'orange':
+        targetPage = 'Fertilizers/orange.html';
+        break;
+    case 'papaya':
+        targetPage = 'Fertilizers/papaya.html';
+        break;
+    case 'coconut':
+        targetPage = 'Fertilizers/coconut.html';
+        break;
+    case 'cotton':
+        targetPage = 'Fertilizers/cotton.html';
+        break;
+    case 'jute':
+        targetPage = 'Fertilizers/jute.html';
+        break;
+    case 'coffee':
+        targetPage = 'Fertilizers/coffee.html';
+        break;
+    default:
+        targetPage = 'default.html';// Fallback page
+      }
+
+      // Redirect to the target page
+      window.location.href = targetPage;
+    });
+  </script>
+</body>
+</html>
